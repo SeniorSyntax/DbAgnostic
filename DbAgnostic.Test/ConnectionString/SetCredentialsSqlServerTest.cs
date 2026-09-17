@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -13,8 +13,8 @@ public class SetCredentialsSqlServerTest
 
         var result = new SqlConnectionStringBuilder(connectionString.SetCredentials("user", "pass"));
 
-        result.UserID.Should().Be.EqualTo("user");
-        result.Password.Should().Be.EqualTo("pass");
+        result.UserID.ShouldBe("user");
+        result.Password.ShouldBe("pass");
     }
 
     [Test]
@@ -24,7 +24,7 @@ public class SetCredentialsSqlServerTest
 
         var result = new SqlConnectionStringBuilder(connectionString.SetCredentials("user", "pass"));
 
-        result.IntegratedSecurity.Should().Be.False();
+        result.IntegratedSecurity.ShouldBeFalse();
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class SetCredentialsSqlServerTest
 
         var result = connectionString.SetCredentials("user", "pass");
 
-        result.Should().Not.Contain("Integrated Security");
+        result.ShouldNotContain("Integrated Security", Case.Sensitive);
     }
 	
     [Test]
@@ -44,8 +44,8 @@ public class SetCredentialsSqlServerTest
 
         var result = connectionString.SetCredentials(null, null);
 
-        result.Should().Not.Contain("User ID");
-        result.Should().Not.Contain("Password");
+        result.ShouldNotContain("User ID", Case.Sensitive);
+        result.ShouldNotContain("Password", Case.Sensitive);
     }
     
     [Test]
@@ -55,9 +55,9 @@ public class SetCredentialsSqlServerTest
 
         var result = connectionString.RemoveCredentials();
 
-        result.IntegratedSecurity().Should().Be.False();
-        result.UserName().Should().Be.Null();
-        result.Password().Should().Be.Null();
+        result.IntegratedSecurity().ShouldBeFalse();
+        result.UserName().ShouldBeNull();
+        result.Password().ShouldBeNull();
     }
     
     [Test]
@@ -67,8 +67,8 @@ public class SetCredentialsSqlServerTest
 
         var result = connectionString.RemoveCredentials();
 
-        result.IntegratedSecurity().Should().Be.False();
-        result.UserName().Should().Be.Null();
-        result.Password().Should().Be.Null();
+        result.IntegratedSecurity().ShouldBeFalse();
+        result.UserName().ShouldBeNull();
+        result.Password().ShouldBeNull();
     }
 }

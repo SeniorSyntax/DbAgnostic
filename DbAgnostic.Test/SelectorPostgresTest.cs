@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test;
 
@@ -13,7 +13,7 @@ public class SelectorPostgresTest
 
 		var result = selector.PickDialect("sql server", "postgres");
 
-		result.Should().Be("postgres");
+		result.ShouldBe("postgres");
 	}
 
 	[Test]
@@ -25,7 +25,7 @@ public class SelectorPostgresTest
 		var postgres = new object();
 		var result = selector.PickDialect(sqlserver, postgres);
 
-		result.Should().Be.SameInstanceAs(postgres);
+		result.ShouldBeSameAs(postgres);
 	}
 
 	[Test]
@@ -37,9 +37,9 @@ public class SelectorPostgresTest
 		var postgres = false;
 		var result = selector.PickFunc(() => { return sqlserver = true; }, () => { return postgres = true; });
 
-		result.Should().Be(true);
-		postgres.Should().Be(true);
-		sqlserver.Should().Be(false);
+		result.ShouldBe(true);
+		postgres.ShouldBe(true);
+		sqlserver.ShouldBe(false);
 	}
 
 	[Test]
@@ -51,7 +51,7 @@ public class SelectorPostgresTest
 		var postgres = false;
 		selector.PickAction(() => { sqlserver = true; }, () => { postgres = true; });
 
-		postgres.Should().Be(true);
-		sqlserver.Should().Be(false);
+		postgres.ShouldBe(true);
+		sqlserver.ShouldBe(false);
 	}
 }

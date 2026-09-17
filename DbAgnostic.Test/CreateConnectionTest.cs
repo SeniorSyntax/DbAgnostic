@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
 using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test;
 
@@ -14,7 +14,7 @@ public class CreateConnectionTest
 
 		var result = connectionString.CreateConnection();
 
-		result.GetType().Name.Should().Be("SqlConnection");
+		result.GetType().Name.ShouldBe("SqlConnection");
 	}
 
 	[Test]
@@ -24,6 +24,6 @@ public class CreateConnectionTest
 
 		var result = connectionString.CreateConnection();
 
-		result.Should().Be.OfType<NpgsqlConnection>();
+		result.ShouldBeOfType<NpgsqlConnection>();
 	}
 }

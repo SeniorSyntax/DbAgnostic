@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -11,7 +11,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Database = "db"}.ToString();
 
-		connectionString.DatabaseName().Should().Be("db");
+		connectionString.DatabaseName().ShouldBe("db");
 	}
 
 	[Test]
@@ -19,7 +19,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
 
-		connectionString.DatabaseName().Should().Be(null);
+		connectionString.DatabaseName().ShouldBe(null);
 	}
 
 	[Test]
@@ -27,7 +27,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Database = null}.ToString();
 
-		connectionString.DatabaseName().Should().Be(null);
+		connectionString.DatabaseName().ShouldBe(null);
 	}
 
 	[Test]
@@ -35,7 +35,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "server"}.ToString();
 
-		connectionString.ServerName().Should().Be("server");
+		connectionString.ServerName().ShouldBe("server");
 	}
 
 	[Test]
@@ -43,7 +43,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = null, Username = "user"}.ToString();
 
-		connectionString.ServerName().Should().Be(null);
+		connectionString.ServerName().ShouldBe(null);
 	}
 	
 	[Test]
@@ -51,7 +51,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", ApplicationName = "app"}.ToString();
 
-		connectionString.ApplicationName().Should().Be("app");
+		connectionString.ApplicationName().ShouldBe("app");
 	}
 
 	[Test]
@@ -59,7 +59,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
 
-		connectionString.ApplicationName().Should().Be(null);
+		connectionString.ApplicationName().ShouldBe(null);
 	}
 
 	[Test]
@@ -67,7 +67,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Password = "pass"}.ToString();
 
-		connectionString.Password().Should().Be("pass");
+		connectionString.Password().ShouldBe("pass");
 	}
 
 	[Test]
@@ -75,7 +75,7 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Username = "user"}.ToString();
 
-		connectionString.UserName().Should().Be("user");
+		connectionString.UserName().ShouldBe("user");
 	}
 
 	[Test]
@@ -83,9 +83,9 @@ public class ReadingPostgresTest
 	{
 		var connectionString = "Host=foo;Database=bar";
 
-		connectionString.ServerName().Should().Be("foo");
-		connectionString.DatabaseName().Should().Be("bar");
-		connectionString.IntegratedSecurity().Should().Be.False();
+		connectionString.ServerName().ShouldBe("foo");
+		connectionString.DatabaseName().ShouldBe("bar");
+		connectionString.IntegratedSecurity().ShouldBeFalse();
 	}
 
 	[Test]
@@ -93,6 +93,6 @@ public class ReadingPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Timeout = 42}.ToString();
 
-		connectionString.ConnectionTimeout().Should().Be(42);
+		connectionString.ConnectionTimeout().ShouldBe(42);
 	}
 }

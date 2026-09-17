@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -11,7 +11,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", InitialCatalog = "db"}.ToString();
 
-		connectionString.DatabaseName().Should().Be("db");
+		connectionString.DatabaseName().ShouldBe("db");
 	}
 	
 	[Test]
@@ -19,7 +19,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo"}.ToString();
 
-		connectionString.DatabaseName().Should().Be(null);
+		connectionString.DatabaseName().ShouldBe(null);
 	}
 	
 	[Test]
@@ -27,7 +27,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "server"}.ToString();
 
-		connectionString.ServerName().Should().Be("server");
+		connectionString.ServerName().ShouldBe("server");
 	}
 
 	[Test]
@@ -35,7 +35,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {UserID = "user"}.ToString();
 
-		connectionString.ServerName().Should().Be(null);
+		connectionString.ServerName().ShouldBe(null);
 	}
 	
 	[Test]
@@ -43,7 +43,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", ApplicationName = "app"}.ToString();
 
-		connectionString.ApplicationName().Should().Be("app");
+		connectionString.ApplicationName().ShouldBe("app");
 	}
 
 	[Test]
@@ -51,7 +51,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo"}.ToString();
 
-		connectionString.ApplicationName().Should().Be(null);
+		connectionString.ApplicationName().ShouldBe(null);
 	}
 
 	[Test]
@@ -59,7 +59,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", Password = "pass"}.ToString();
 
-		connectionString.Password().Should().Be("pass");
+		connectionString.Password().ShouldBe("pass");
 	}
 
 	[Test]
@@ -67,7 +67,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", UserID = "user"}.ToString();
 
-		connectionString.UserName().Should().Be("user");
+		connectionString.UserName().ShouldBe("user");
 	}
 
 	[Test]
@@ -75,7 +75,7 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", IntegratedSecurity = true}.ToString();
 
-		connectionString.IntegratedSecurity().Should().Be(true);
+		connectionString.IntegratedSecurity().ShouldBe(true);
 	}
 
 	[Test]
@@ -83,6 +83,6 @@ public class ReadingSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder {ConnectTimeout = 47}.ToString();
 
-		connectionString.ConnectionTimeout().Should().Be(47);
+		connectionString.ConnectionTimeout().ShouldBe(47);
 	}
 }

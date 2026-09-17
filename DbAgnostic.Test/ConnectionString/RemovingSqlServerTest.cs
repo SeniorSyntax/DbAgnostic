@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -13,7 +13,7 @@ public class RemovingSqlServerTest
 
         var result = connectionString.ChangeDatabase(null);
 
-        result.Should().Be("Data Source=foo");
+        result.ShouldBe("Data Source=foo");
     }
 
     [Test]
@@ -23,7 +23,7 @@ public class RemovingSqlServerTest
 
         var result = connectionString.RemoveDatabase();
 
-        result.Should().Be("Data Source=foo");
+        result.ShouldBe("Data Source=foo");
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class RemovingSqlServerTest
 
         var result = connectionString.ChangeServer(null);
 
-        result.Should().Be("Initial Catalog=db");
+        result.ShouldBe("Initial Catalog=db");
     }
 
     [Test]
@@ -43,7 +43,7 @@ public class RemovingSqlServerTest
 
         var result = connectionString.RemoveServer();
 
-        result.Should().Be("Initial Catalog=db");
+        result.ShouldBe("Initial Catalog=db");
     }
 
     [Test]
@@ -53,7 +53,7 @@ public class RemovingSqlServerTest
 
         var result = connectionString.ChangeApplicationName(null);
 
-        result.Should().Be("Data Source=foo");
+        result.ShouldBe("Data Source=foo");
     }
 
     [Test]
@@ -63,6 +63,6 @@ public class RemovingSqlServerTest
 
         var result = connectionString.RemoveApplicationName();
 
-        result.Should().Be("Data Source=foo");
+        result.ShouldBe("Data Source=foo");
     }
 }

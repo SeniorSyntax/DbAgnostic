@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -13,7 +13,7 @@ public class MutationSqlServerTest
 
 		var result = connectionString.ChangeDatabase("changed");
 
-		new SqlConnectionStringBuilder(result).InitialCatalog.Should().Be("changed");
+		new SqlConnectionStringBuilder(result).InitialCatalog.ShouldBe("changed");
 	}
 
 	[Test]
@@ -23,7 +23,7 @@ public class MutationSqlServerTest
 
 		var result = connectionString.PointToMasterDatabase();
 
-		new SqlConnectionStringBuilder(result).InitialCatalog.Should().Be("master");
+		new SqlConnectionStringBuilder(result).InitialCatalog.ShouldBe("master");
 	}
 
 	[Test]
@@ -33,7 +33,7 @@ public class MutationSqlServerTest
 
 		var result = connectionString.ChangeServer("anotherserver");
 
-		new SqlConnectionStringBuilder(result).DataSource.Should().Be("anotherserver");
+		new SqlConnectionStringBuilder(result).DataSource.ShouldBe("anotherserver");
 	}
 
 	[Test]
@@ -43,7 +43,7 @@ public class MutationSqlServerTest
 
 		var result = connectionString.ChangeApplicationName("coolapp");
 
-		new SqlConnectionStringBuilder(result).ApplicationName.Should().Be("coolapp");
+		new SqlConnectionStringBuilder(result).ApplicationName.ShouldBe("coolapp");
 	}
 	
 	[Test]
@@ -54,6 +54,6 @@ public class MutationSqlServerTest
 		var result = connectionString.SetConnectionTimeout(17);
 
 		new SqlConnectionStringBuilder(result).ConnectTimeout
-			.Should().Be.EqualTo(17);
+			.ShouldBe(17);
 	}
 }

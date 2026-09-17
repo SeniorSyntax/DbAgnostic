@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test;
 
@@ -13,7 +13,7 @@ public class SelectorDbConnectionPostgresTest
 
 		var result = connection.PickDialect("sql server", "postgres");
 
-		result.Should().Be("postgres");
+		result.ShouldBe("postgres");
 	}
 
 	[Test]
@@ -25,7 +25,7 @@ public class SelectorDbConnectionPostgresTest
 		var postgres = new object();
 		var result = connection.PickDialect(sqlserver, postgres);
 
-		result.Should().Be.SameInstanceAs(postgres);
+		result.ShouldBeSameAs(postgres);
 	}
 
 	[Test]
@@ -37,9 +37,9 @@ public class SelectorDbConnectionPostgresTest
 		var postgres = false;
 		var result = connection.PickFunc(() => { return sqlserver = true; }, () => { return postgres = true; });
 
-		result.Should().Be(true);
-		sqlserver.Should().Be(false);
-		postgres.Should().Be(true);
+		result.ShouldBe(true);
+		sqlserver.ShouldBe(false);
+		postgres.ShouldBe(true);
 	}
 
 	[Test]
@@ -51,7 +51,7 @@ public class SelectorDbConnectionPostgresTest
 		var postgres = false;
 		connection.PickAction(() => { sqlserver = true; }, () => { postgres = true; });
 
-		sqlserver.Should().Be(false);
-		postgres.Should().Be(true);
+		sqlserver.ShouldBe(false);
+		postgres.ShouldBe(true);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -13,7 +13,7 @@ public class RemovingPostgresTest
 
         var result = connectionString.ChangeDatabase(null);
 
-        result.Should().Be("Host=foo");
+        result.ShouldBe("Host=foo");
     }
 
     [Test]
@@ -23,7 +23,7 @@ public class RemovingPostgresTest
 
         var result = connectionString.RemoveDatabase();
 
-        result.Should().Be("Host=foo");
+        result.ShouldBe("Host=foo");
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class RemovingPostgresTest
 
         var result = connectionString.ChangeServer(null);
 
-        result.Should().Be("Database=db");
+        result.ShouldBe("Database=db");
     }
 
     [Test]
@@ -43,7 +43,7 @@ public class RemovingPostgresTest
 
         var result = connectionString.RemoveServer();
 
-        result.Should().Be("Database=db");
+        result.ShouldBe("Database=db");
     }
 
     [Test]
@@ -53,7 +53,7 @@ public class RemovingPostgresTest
 
         var result = connectionString.ChangeApplicationName(null);
 
-        result.Should().Be("Host=foo");
+        result.ShouldBe("Host=foo");
     }
 
     [Test]
@@ -63,6 +63,6 @@ public class RemovingPostgresTest
 
         var result = connectionString.RemoveApplicationName();
 
-        result.Should().Be("Host=foo");
+        result.ShouldBe("Host=foo");
     }
 }

@@ -1,7 +1,7 @@
 using System.Data.SqlClient;
 using Npgsql;
 using NUnit.Framework;
-using SharpTestsEx;
+using Shouldly;
 
 namespace DbAgnostic.Test.ConnectionString;
 
@@ -14,7 +14,7 @@ public class SetIntegratedSecurityPostgresTest
 
         var result = connectionString.SetIntegratedSecurity();
 
-        result.IntegratedSecurity().Should().Be.False();
+        result.IntegratedSecurity().ShouldBeFalse();
     }
     
     [Test]
@@ -24,7 +24,7 @@ public class SetIntegratedSecurityPostgresTest
     
         var result = connectionString.SetIntegratedSecurity();
     
-        result.Should().Not.Contain("Password");
-        result.Should().Not.Contain("User Id");
+        result.ShouldNotContain("Password", Case.Sensitive);
+        result.ShouldNotContain("User Id", Case.Sensitive);
     }
 }
